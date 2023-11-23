@@ -10,7 +10,7 @@ using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 
-namespace Othello_Project_1._0.Objects__Models_
+/* namespace Othello_Project_1._0.Objects__Models_
 {
     internal class GameModelObject
     {
@@ -70,37 +70,38 @@ namespace Othello_Project_1._0.Objects__Models_
             return TileCoordinates ;
         }
 
-        public List<int[]> CheckForOppositions(int Newx, int Newy, int dx, int dy)
+        public List<int[]> CheckForOppositions( int Newx, int Newy, int dx, int dy) //checks if the next square is a oppositional white token (when blacks turn)
         {
             List<int[]> Opps = new List<int[]>();
             List<int[]> PotentialMoves = new List<int[]>();
             TileState OpponentTileState = CurrentPlayer == GameState.Player1 ? TileState.White : TileState.Black;
 
             int NumberOfRows = GameBoard.GetLength(0);
-            int NumberOfColumns = GameBoard.GetLength(1);
+            int NumberOfColumns = GameBoard.GetLength(1);     
 
-            int NEWX = Newx + dx; // x coordinate of the next square place after the first oppositional token
-            int NEWY = Newy + dy; // y coordinate of the next square place after the first oppositional token
+            int NEWX = Newx + dx; // x coordinate of next square place after first oppositional token
+            int NEWY = Newy + dy; // y coordinate of next square place after first oppositional token
+            int[] OppCoordinates = { NEWX, NEWY }; // this is what i will iterate thru and change into player's colour when the potential move is clicked
+
+            Opps.Add(OppCoordinates); // adds (x,y) coordinate to list
 
             if (NEWX >= 0 && NEWX < NumberOfRows && NEWY >= 0 && NEWY < NumberOfColumns)
             {
-                if (GameBoard[NEWX, NEWY] == OpponentTileState)
+                if ( GameBoard[NEWX, NEWY] == OpponentTileState) 
                 {
-                    List<int[]> RecursiveOpps = CheckForOppositions(NEWX, NEWY, dx, dy); // checks if the next space in that direction is an opp 
-                    Opps.AddRange(RecursiveOpps);
+                    CheckForOppositions( NEWX, NEWY, dx, dy); // checks if the next space in that direction is an opp 
                 }
+
                 else if (GameBoard[NEWX, NEWY] == TileState.Empty) // if empty
                 {
                     GameBoard[NEWX, NEWY] = TileState.PotentialMove;
                     int[] PotentialMove = { NEWX, NEWY };
-                    PotentialMoves.Add(PotentialMove);
+                    PotentialMoves.Add(PotentialMove); 
                 }
             }
 
             return PotentialMoves;
         }
-
-
 
         public List<int[]> LegalMoves()
         {
@@ -112,21 +113,21 @@ namespace Othello_Project_1._0.Objects__Models_
             TileState CurrentTileState = CurrentPlayer == GameState.Player1 ? TileState.Black : TileState.White;
             TileState OpponentTileState = CurrentPlayer == GameState.Player1 ? TileState.White : TileState.Black;
 
-            foreach (int[,] position in CheckForTileState(CurrentTileState))
+            foreach (int[,] position in CheckForTileState(CurrentTileState) ) 
             {
                 int row = position[0, 0];
-                int column = position[0, 1]; // could I just directly access this as position, since I've set position to be the complete (i,j) ?
+                int column = position[0, 1]; // could i just directly access this as position, since i've set position to be the complete (i,j) ?
 
                 int[][] directions = new int[][]
                 {
-                    new int[] { -1, -1 },  // Up-Left
-                    new int[] { -1, 0 },  // Up
-                    new int[] { -1, 1 },  // Up-Right
-                    new int[] { 0, -1 },  // Left
-                    new int[] { 0, 1 },   // Right
-                    new int[] { 1, -1 },  // Down-Left
-                    new int[] { 1, 0 },   // Down
-                    new int[] { 1, 1 }    // Down-Right
+                new int[] { -1, -1 },  // Up-Left
+                new int[] { -1, 0 },  // Up
+                new int[] { -1, 1 },  // Up-Right
+                new int[] { 0, -1 },  // Left
+                new int[] { 0, 1 },   // Right
+                new int[] { 1, -1 },  // Down-Left
+                new int[] { 1, 0 },   // Down
+                new int[] { 1, 1 }    // Down-Right
                 };
 
                 foreach (int[] direction in directions)
@@ -139,7 +140,7 @@ namespace Othello_Project_1._0.Objects__Models_
 
                     if (NewX >= 0 && NewX < NumberOfRows && NewY >= 0 && NewY < NumberOfColumns)
                     {
-                        if (GameBoard[NewX, NewY] == OpponentTileState) // if any square around a given token is the opponent token
+                        if ( GameBoard[NewX, NewY] == OpponentTileState) // if any square around a given token is the opponent token
                         {
                             List<int[]> PotentialMoves = CheckForOppositions(NewX, NewY, dx, dy);
                             TotalPotentialMoves.AddRange(PotentialMoves);
@@ -151,12 +152,11 @@ namespace Othello_Project_1._0.Objects__Models_
             return TotalPotentialMoves;
         }
 
-
         public void FlipsTokens(int Newx, int Newy, int dx, int dy)
         {
             List<int[]> Opps = new List<int[]>
             {
-                new int[] { Newx, Newy } // adds that FIRST opposition to opps list 
+            new int[] { Newx, Newy } // adds that FIRST oppositon to opps list 
             };
             TileState CurrentTileState = CurrentPlayer == GameState.Player1 ? TileState.Black : TileState.White;
             TileState OpponentTileState = CurrentPlayer == GameState.Player1 ? TileState.White : TileState.Black;
@@ -167,29 +167,26 @@ namespace Othello_Project_1._0.Objects__Models_
             int NEWX = Newx + dx; // x coordinate of the next square place after the first oppositional token
             int NEWY = Newy + dy; // y coordinate of the next square place after the first oppositional token
 
-            while (NEWX >= 0 && NEWX < NumberOfRows && NEWY >= 0 && NEWY < NumberOfColumns && GameBoard[NEWX, NEWY] == OpponentTileState)
+            if (NEWX >= 0 && NEWX < NumberOfRows && NEWY >= 0 && NEWY < NumberOfColumns)
             {
-                Opps.Add(new int[] { NEWX, NEWY });
-                NEWX += dx;
-                NEWY += dy;
-            }
+                if (GameBoard[NEWX, NEWY] == OpponentTileState)
+                {
+                    FlipsTokens(NEWX, NEWY, dx, dy); // flips the next oppositional token in that direction
+                }
 
-            if (NEWX >= 0 && NEWX < NumberOfRows && NEWY >= 0 && NEWY < NumberOfColumns && GameBoard[NEWX, NEWY] == CurrentTileState)
-            {
                 foreach (int[] Opp in Opps)
                 {
-                    GameBoard[Opp[0], Opp[1]] = CurrentTileState;
+                    GameBoard[Opp[0], Opp[1]] = CurrentTileState; // need to understand this properly
                 }
             }
         }
-
-
 
 
         public void FlippingTokens(int row , int column)
         {
             int NumberOfRows = GameBoard.GetLength(0);
             int NumberOfColumns = GameBoard.GetLength(1);
+
 
             TileState CurrentTileState = CurrentPlayer == GameState.Player1 ? TileState.Black : TileState.White;
             TileState OpponentTileState = CurrentPlayer == GameState.Player1 ? TileState.White : TileState.Black;
@@ -231,4 +228,4 @@ namespace Othello_Project_1._0.Objects__Models_
 
         }
     }
-}
+}  */
