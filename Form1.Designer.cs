@@ -44,9 +44,10 @@
             pictureBox4 = new PictureBox();
             pictureBox3 = new PictureBox();
             pictureBox5 = new PictureBox();
-            label3 = new Label();
-            label4 = new Label();
             lblMessage = new Label();
+            textBox1 = new TextBox();
+            textBox2 = new TextBox();
+            aboutToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -99,17 +100,18 @@
             // speechToolStripMenuItem
             // 
             speechToolStripMenuItem.Name = "speechToolStripMenuItem";
-            speechToolStripMenuItem.Size = new Size(127, 22);
+            speechToolStripMenuItem.Size = new Size(180, 22);
             speechToolStripMenuItem.Text = "Speech";
             // 
             // infoPanelToolStripMenuItem
             // 
             infoPanelToolStripMenuItem.Name = "infoPanelToolStripMenuItem";
-            infoPanelToolStripMenuItem.Size = new Size(127, 22);
+            infoPanelToolStripMenuItem.Size = new Size(180, 22);
             infoPanelToolStripMenuItem.Text = "Info Panel";
             // 
             // helpToolStripMenuItem
             // 
+            helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem });
             helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             helpToolStripMenuItem.Size = new Size(44, 20);
             helpToolStripMenuItem.Text = "Help";
@@ -182,26 +184,6 @@
             pictureBox5.TabIndex = 8;
             pictureBox5.TabStop = false;
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(189, 557);
-            label3.Name = "label3";
-            label3.Size = new Size(80, 30);
-            label3.TabIndex = 9;
-            label3.Text = "Player1";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(487, 557);
-            label4.Name = "label4";
-            label4.Size = new Size(80, 30);
-            label4.TabIndex = 10;
-            label4.Text = "Player2";
-            // 
             // lblMessage
             // 
             lblMessage.AutoSize = true;
@@ -211,15 +193,40 @@
             lblMessage.TabIndex = 11;
             lblMessage.Text = "label5";
             // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(170, 557);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(100, 23);
+            textBox1.TabIndex = 12;
+            textBox1.Text = "Player1";
+            textBox1.TextChanged += textBox1_TextChanged;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(468, 557);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(100, 23);
+            textBox2.TabIndex = 13;
+            textBox2.Text = "Player2";
+            textBox2.TextChanged += textBox2_TextChanged;
+            // 
+            // aboutToolStripMenuItem
+            // 
+            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            aboutToolStripMenuItem.Size = new Size(180, 22);
+            aboutToolStripMenuItem.Text = "About";
+            aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Silver;
             ClientSize = new Size(639, 615);
+            Controls.Add(textBox2);
+            Controls.Add(textBox1);
             Controls.Add(lblMessage);
-            Controls.Add(label4);
-            Controls.Add(label3);
             Controls.Add(pictureBox5);
             Controls.Add(pictureBox3);
             Controls.Add(pictureBox4);
@@ -255,13 +262,14 @@
         private PictureBox pictureBox4;
         private PictureBox pictureBox3;
         private PictureBox pictureBox5;
-        private Label label3;
-        private Label label4;
         private ToolStripMenuItem newGameToolStripMenuItem;
         private ToolStripMenuItem loadGameToolStripMenuItem;
         private ToolStripMenuItem saveGameToolStripMenuItem;
         private ToolStripMenuItem speechToolStripMenuItem;
         private ToolStripMenuItem infoPanelToolStripMenuItem;
         private Label lblMessage;
+        private TextBox textBox1;
+        private TextBox textBox2;
+        private ToolStripMenuItem aboutToolStripMenuItem;
     }
 }

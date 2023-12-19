@@ -70,9 +70,9 @@ namespace Othello_Project_1._0
 
             TileState originalValue = _game.GameBoard[clickedRowIndex, clickedColIndex];
 
-            TileState CurrentTileState = _game.CurrentPlayer == GameState.Player1 ? TileState.Black : TileState.White; 
+            TileState CurrentTileState = _game.CurrentPlayer == GameState.Player1 ? TileState.Black : TileState.White;
 
-            if (originalValue == TileState.PotentialMove )
+            if (originalValue == TileState.PotentialMove)
             {
                 _game.FlippingTokens(clickedRowIndex, clickedColIndex);
                 _game.GameBoard[clickedRowIndex, clickedColIndex] = CurrentTileState;
@@ -100,5 +100,19 @@ namespace Othello_Project_1._0
 
         }
 
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
