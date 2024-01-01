@@ -77,6 +77,7 @@ namespace Othello_Project_1._0
                 _game.FlippingTokens(clickedRowIndex, clickedColIndex);
                 _game.GameBoard[clickedRowIndex, clickedColIndex] = CurrentTileState;
 
+                CountPlayerTokens();
                 _game.SwapPlayerTurn();
 
                 UpdatePotentialMoves();
@@ -92,6 +93,32 @@ namespace Othello_Project_1._0
             int current = next
             int next = temp */
 
+
+        }
+
+        public void CountPlayerTokens() // counts how many tokens there are for each player/colour
+        {
+            int WhiteTokens = 0;
+            int BlackTokens = 0;
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (_game.GameBoard[i, j] == TileState.Black)
+                    {
+                        BlackTokens++;
+                    }
+
+                    else if (_game.GameBoard[i, j] == TileState.White)
+                    {
+                        WhiteTokens++;
+                    }
+                }
+            }
+
+            label1.Text = BlackTokens.ToString();
+            label2.Text = WhiteTokens.ToString();
 
         }
 
@@ -120,6 +147,22 @@ namespace Othello_Project_1._0
 
 
             aboutToolStripMenuItem_Click(sender, e);
+        }
+
+        private void infoPanelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            label1.Visible = !infoPanelToolStripMenuItem.Checked;
+            label2.Visible = !infoPanelToolStripMenuItem.Checked;
+            textBox1.Visible = !infoPanelToolStripMenuItem.Checked;
+            textBox2.Visible = !infoPanelToolStripMenuItem.Checked;
+
+            pictureBox1.Visible = !infoPanelToolStripMenuItem.Checked;
+            pictureBox2.Visible = !infoPanelToolStripMenuItem.Checked;
+            pictureBox3.Visible = !infoPanelToolStripMenuItem.Checked;
+            pictureBox4.Visible = !infoPanelToolStripMenuItem.Checked;
+            pictureBox5.Visible = !infoPanelToolStripMenuItem.Checked;
+
+            infoPanelToolStripMenuItem.Checked = !infoPanelToolStripMenuItem.Checked;
         }
     }
 }

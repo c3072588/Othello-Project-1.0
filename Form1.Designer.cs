@@ -37,6 +37,7 @@
             speechToolStripMenuItem = new ToolStripMenuItem();
             infoPanelToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
+            aboutToolStripMenuItem = new ToolStripMenuItem();
             pictureBox1 = new PictureBox();
             label1 = new Label();
             label2 = new Label();
@@ -47,7 +48,6 @@
             lblMessage = new Label();
             textBox1 = new TextBox();
             textBox2 = new TextBox();
-            aboutToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -105,9 +105,12 @@
             // 
             // infoPanelToolStripMenuItem
             // 
+            infoPanelToolStripMenuItem.Checked = true;
+            infoPanelToolStripMenuItem.CheckState = CheckState.Checked;
             infoPanelToolStripMenuItem.Name = "infoPanelToolStripMenuItem";
             infoPanelToolStripMenuItem.Size = new Size(180, 22);
             infoPanelToolStripMenuItem.Text = "Info Panel";
+            infoPanelToolStripMenuItem.Click += infoPanelToolStripMenuItem_Click;
             // 
             // helpToolStripMenuItem
             // 
@@ -115,6 +118,13 @@
             helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             helpToolStripMenuItem.Size = new Size(44, 20);
             helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            aboutToolStripMenuItem.Size = new Size(107, 22);
+            aboutToolStripMenuItem.Text = "About";
+            aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
             // 
             // pictureBox1
             // 
@@ -210,13 +220,6 @@
             textBox2.TabIndex = 13;
             textBox2.Text = "Player2";
             textBox2.TextChanged += textBox2_TextChanged;
-            // 
-            // aboutToolStripMenuItem
-            // 
-            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new Size(180, 22);
-            aboutToolStripMenuItem.Text = "About";
-            aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
             // 
             // Form1
             // 
