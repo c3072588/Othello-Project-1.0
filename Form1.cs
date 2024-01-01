@@ -112,7 +112,14 @@ namespace Othello_Project_1._0
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Create an instance of the AboutForm
+            About aboutForm = new About();
 
+            // Show the AboutForm as a modal dialog
+            aboutForm.ShowDialog();
+
+
+            aboutToolStripMenuItem_Click(sender, e);
         }
     }
 }

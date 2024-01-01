@@ -230,5 +230,12 @@ namespace Othello_Project_1._0.Objects__Models_
             // if current player is black then opponent player is white , otherwise opponent player is black
 
         }
+
+        public void EndGame()
+        {
+
+        }
+
+
     }
 }
