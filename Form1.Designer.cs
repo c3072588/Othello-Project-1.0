@@ -48,6 +48,9 @@
             lblMessage = new Label();
             textBox1 = new TextBox();
             textBox2 = new TextBox();
+            button1 = new Button();
+            label3 = new Label();
+            label4 = new Label();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -100,7 +103,7 @@
             // speechToolStripMenuItem
             // 
             speechToolStripMenuItem.Name = "speechToolStripMenuItem";
-            speechToolStripMenuItem.Size = new Size(180, 22);
+            speechToolStripMenuItem.Size = new Size(127, 22);
             speechToolStripMenuItem.Text = "Speech";
             // 
             // infoPanelToolStripMenuItem
@@ -108,7 +111,7 @@
             infoPanelToolStripMenuItem.Checked = true;
             infoPanelToolStripMenuItem.CheckState = CheckState.Checked;
             infoPanelToolStripMenuItem.Name = "infoPanelToolStripMenuItem";
-            infoPanelToolStripMenuItem.Size = new Size(180, 22);
+            infoPanelToolStripMenuItem.Size = new Size(127, 22);
             infoPanelToolStripMenuItem.Text = "Info Panel";
             infoPanelToolStripMenuItem.Click += infoPanelToolStripMenuItem_Click;
             // 
@@ -141,7 +144,7 @@
             label1.AutoSize = true;
             label1.BackColor = Color.Gray;
             label1.Font = new Font("Segoe UI Semibold", 20F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(51, 546);
+            label1.Location = new Point(24, 550);
             label1.Name = "label1";
             label1.Size = new Size(46, 37);
             label1.TabIndex = 2;
@@ -152,7 +155,7 @@
             label2.AutoSize = true;
             label2.BackColor = Color.Gray;
             label2.Font = new Font("Segoe UI Semibold", 20F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(346, 546);
+            label2.Location = new Point(337, 546);
             label2.Name = "label2";
             label2.Size = new Size(46, 37);
             label2.TabIndex = 3;
@@ -161,7 +164,7 @@
             // pictureBox2
             // 
             pictureBox2.BackColor = Color.DarkGreen;
-            pictureBox2.Location = new Point(116, 546);
+            pictureBox2.Location = new Point(68, 546);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(48, 48);
             pictureBox2.TabIndex = 4;
@@ -170,7 +173,7 @@
             // pictureBox4
             // 
             pictureBox4.BackColor = Color.DarkGreen;
-            pictureBox4.Location = new Point(414, 544);
+            pictureBox4.Location = new Point(395, 544);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(48, 48);
             pictureBox4.TabIndex = 6;
@@ -179,7 +182,7 @@
             // pictureBox3
             // 
             pictureBox3.BackColor = Color.Black;
-            pictureBox3.Location = new Point(418, 549);
+            pictureBox3.Location = new Point(72, 549);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(40, 40);
             pictureBox3.TabIndex = 7;
@@ -188,7 +191,7 @@
             // pictureBox5
             // 
             pictureBox5.BackColor = Color.White;
-            pictureBox5.Location = new Point(120, 550);
+            pictureBox5.Location = new Point(399, 548);
             pictureBox5.Name = "pictureBox5";
             pictureBox5.Size = new Size(40, 40);
             pictureBox5.TabIndex = 8;
@@ -199,13 +202,12 @@
             lblMessage.AutoSize = true;
             lblMessage.Location = new Point(16, 37);
             lblMessage.Name = "lblMessage";
-            lblMessage.Size = new Size(38, 15);
+            lblMessage.Size = new Size(0, 15);
             lblMessage.TabIndex = 11;
-            lblMessage.Text = "label5";
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(170, 557);
+            textBox1.Location = new Point(127, 546);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(100, 23);
             textBox1.TabIndex = 12;
@@ -214,12 +216,41 @@
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(468, 557);
+            textBox2.Location = new Point(463, 544);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(100, 23);
             textBox2.TabIndex = 13;
             textBox2.Text = "Player2";
             textBox2.TextChanged += textBox2_TextChanged;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(249, 555);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 16;
+            button1.Text = "Start Game";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(136, 577);
+            label3.Name = "label3";
+            label3.Size = new Size(84, 15);
+            label3.TabIndex = 17;
+            label3.Text = "^NEXT TURN^";
+            label3.Click += label3_Click;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(470, 577);
+            label4.Name = "label4";
+            label4.Size = new Size(84, 15);
+            label4.TabIndex = 18;
+            label4.Text = "^NEXT TURN^";
             // 
             // Form1
             // 
@@ -227,6 +258,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Silver;
             ClientSize = new Size(639, 615);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(button1);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
             Controls.Add(lblMessage);
@@ -274,5 +308,8 @@
         private TextBox textBox1;
         private TextBox textBox2;
         private ToolStripMenuItem aboutToolStripMenuItem;
+        private Button button1;
+        private Label label3;
+        private Label label4;
     }
 }

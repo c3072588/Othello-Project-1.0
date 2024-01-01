@@ -17,6 +17,10 @@ namespace Othello_Project_1._0
             Point topLeftConnerFromFormSides = new Point(0, 0);
             Point bottomRightConnerFromFormSides = new Point(100, 100);
             string pathToImages = Directory.GetCurrentDirectory() + @"\images\";
+            //pictureBox7.Hide();
+
+            label3.Visible = false;
+            label4.Visible = true;
 
             _game = new GameModelObject("Walid", "Bob");
 
@@ -74,26 +78,30 @@ namespace Othello_Project_1._0
 
             if (originalValue == TileState.PotentialMove)
             {
+
                 _game.FlippingTokens(clickedRowIndex, clickedColIndex);
                 _game.GameBoard[clickedRowIndex, clickedColIndex] = CurrentTileState;
 
-                CountPlayerTokens();
-                _game.SwapPlayerTurn();
 
+                CountPlayerTokens();
+                CurrentPlayerTurn();
+                _game.SwapPlayerTurn();
+                CurrentPlayerTurn();
                 UpdatePotentialMoves();
+
                 _simpleBoard.UpdateBoardGui(_game.Convert2DIntegerArray());
+
 
                 lblMessage.Text = $"You clicked the tile mapped to array position ({clickedRowIndex},{clickedColIndex}).\n" +
                     $"It's value used to be {originalValue}, but changed to {CurrentTileState} when you clicked the tile!";
 
             }
 
+
             /*Public swap()
             int temp = current
             int current = next
             int next = temp */
-
-
         }
 
         public void CountPlayerTokens() // counts how many tokens there are for each player/colour
@@ -122,20 +130,33 @@ namespace Othello_Project_1._0
 
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void CurrentPlayerTurn()
         {
+            // change the current player to the other player
+            _game.CurrentPlayer = _game.CurrentPlayer == GameState.Player1 ? GameState.Player2 : GameState.Player1;
+            label3.Visible = false;
+            label4.Visible = false;
+
+            if (_game.CurrentPlayer == GameState.Player1)
+            {
+                label3.Visible = false;
+                label4.Visible = true;
+            }
+
+            else if (_game.CurrentPlayer == GameState.Player2)
+            {
+                label3.Visible = true;
+                label4.Visible = false;
+            }
 
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
+        /* private void UpdateTurnIndicator(bool isPlayerOneTurn)
+         {
+             lblNextplayer1.Visible = isPlayerOneTurn;
+             lblNextplayer2.Visible = !isPlayerOneTurn;
+         } */
 
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -153,6 +174,8 @@ namespace Othello_Project_1._0
         {
             label1.Visible = !infoPanelToolStripMenuItem.Checked;
             label2.Visible = !infoPanelToolStripMenuItem.Checked;
+            label3.Visible = !infoPanelToolStripMenuItem.Checked;
+            label4.Visible = !infoPanelToolStripMenuItem.Checked;
             textBox1.Visible = !infoPanelToolStripMenuItem.Checked;
             textBox2.Visible = !infoPanelToolStripMenuItem.Checked;
 
@@ -161,8 +184,45 @@ namespace Othello_Project_1._0
             pictureBox3.Visible = !infoPanelToolStripMenuItem.Checked;
             pictureBox4.Visible = !infoPanelToolStripMenuItem.Checked;
             pictureBox5.Visible = !infoPanelToolStripMenuItem.Checked;
+            pictureBox6.Visible = !infoPanelToolStripMenuItem.Checked;
+            pictureBox7.Visible = !infoPanelToolStripMenuItem.Checked;
 
             infoPanelToolStripMenuItem.Checked = !infoPanelToolStripMenuItem.Checked;
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Disable textboxes after setting names
+            textBox1.ReadOnly = true;
+            textBox2.ReadOnly = true;
+
+            // Hide the start game button
+            button1.Hide();
+        }
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

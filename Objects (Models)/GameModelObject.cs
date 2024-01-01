@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
@@ -231,11 +232,11 @@ namespace Othello_Project_1._0.Objects__Models_
 
         }
 
+
         public void EndGame()
         {
 
         }
-
 
     }
 }
