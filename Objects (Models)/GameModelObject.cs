@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using Newtonsoft.Json;
 
 
 namespace Othello_Project_1._0.Objects__Models_
@@ -233,9 +234,20 @@ namespace Othello_Project_1._0.Objects__Models_
         }
 
 
-        public void EndGame()
+        public bool CanGameContinue()
         {
-
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    // if the move is valid return true
+                    if (GameBoard[i, j] == TileState.PotentialMove)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
     }

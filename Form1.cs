@@ -2,6 +2,7 @@ using GameboardGUI;
 using Othello_Project_1._0.Objects__Models_;
 using System.CodeDom.Compiler;
 using System.Diagnostics.Eventing.Reader;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Othello_Project_1._0
@@ -17,16 +18,15 @@ namespace Othello_Project_1._0
             Point topLeftConnerFromFormSides = new Point(0, 0);
             Point bottomRightConnerFromFormSides = new Point(100, 100);
             string pathToImages = Directory.GetCurrentDirectory() + @"\images\";
-            //pictureBox7.Hide();
-
-            label3.Visible = false;
-            label4.Visible = true;
 
             _game = new GameModelObject("Walid", "Bob");
 
             UpdatePotentialMoves();
 
             List<int[]> potentialMoves = _game.LegalMoves();
+
+            label3.Visible = false;
+            label4.Visible = true;
 
             try
             {
@@ -76,6 +76,13 @@ namespace Othello_Project_1._0
 
             TileState CurrentTileState = _game.CurrentPlayer == GameState.Player1 ? TileState.Black : TileState.White;
 
+            if (_game.CanGameContinue() == false)
+            {
+                EndGame();
+                //NewGame();
+            }
+
+
             if (originalValue == TileState.PotentialMove)
             {
 
@@ -96,12 +103,6 @@ namespace Othello_Project_1._0
                     $"It's value used to be {originalValue}, but changed to {CurrentTileState} when you clicked the tile!";
 
             }
-
-
-            /*Public swap()
-            int temp = current
-            int current = next
-            int next = temp */
         }
 
         public void CountPlayerTokens() // counts how many tokens there are for each player/colour
@@ -151,23 +152,57 @@ namespace Othello_Project_1._0
 
         }
 
-        /* private void UpdateTurnIndicator(bool isPlayerOneTurn)
-         {
-             lblNextplayer1.Visible = isPlayerOneTurn;
-             lblNextplayer2.Visible = !isPlayerOneTurn;
-         } */
+        public void EndGame()
+        {
+            int BlackScore = 0;
+            int WhiteScore = 0;
+
+            string Winner;
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (_game.GameBoard[i, j] == TileState.Black)
+                    {
+                        BlackScore++;
+                    }
+
+                    else if (_game.GameBoard[i, j] == TileState.White)
+                    {
+                        WhiteScore++;
+                    }
+                }
+            }
+
+            if (BlackScore > WhiteScore)
+            {
+                Winner = $"{textBox1.Text} (BLACK) wins!";
+            }
+
+            else if (WhiteScore > BlackScore)
+            {
+                Winner = $"{textBox2.Text} (WHITE) wins!";
+            }
+
+            else
+            {
+                Winner = "It's a tie!";
+            }
+
+            // Display the message to the players
+            string message = $"Game Over!\nBLACK: {BlackScore}\nWHITE: {WhiteScore}\n{Winner}";
+            MessageBox.Show(message, "Game Over", MessageBoxButtons.OK);
+
+
+        }
 
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Create an instance of the AboutForm
             About aboutForm = new About();
 
-            // Show the AboutForm as a modal dialog
-            aboutForm.ShowDialog();
-
-
-            aboutToolStripMenuItem_Click(sender, e);
+            DialogResult result = aboutForm.ShowDialog();
         }
 
         private void infoPanelToolStripMenuItem_Click(object sender, EventArgs e)
@@ -176,6 +211,7 @@ namespace Othello_Project_1._0
             label2.Visible = !infoPanelToolStripMenuItem.Checked;
             label3.Visible = !infoPanelToolStripMenuItem.Checked;
             label4.Visible = !infoPanelToolStripMenuItem.Checked;
+            label5.Visible = !infoPanelToolStripMenuItem.Checked;
             textBox1.Visible = !infoPanelToolStripMenuItem.Checked;
             textBox2.Visible = !infoPanelToolStripMenuItem.Checked;
 
@@ -184,8 +220,6 @@ namespace Othello_Project_1._0
             pictureBox3.Visible = !infoPanelToolStripMenuItem.Checked;
             pictureBox4.Visible = !infoPanelToolStripMenuItem.Checked;
             pictureBox5.Visible = !infoPanelToolStripMenuItem.Checked;
-            pictureBox6.Visible = !infoPanelToolStripMenuItem.Checked;
-            pictureBox7.Visible = !infoPanelToolStripMenuItem.Checked;
 
             infoPanelToolStripMenuItem.Checked = !infoPanelToolStripMenuItem.Checked;
         }
