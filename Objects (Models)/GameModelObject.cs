@@ -21,12 +21,13 @@ namespace Othello_Project_1._0.Objects__Models_
         public string Player1Name { get; set; }
         public string Player2Name { get; set; }
         public GameState CurrentPlayer { get; set; }
+        public List<GameState> SavedGameStates { get; private set; }
 
         // instanciating all objects and properties in our GameModelObject.cs
-        public GameModelObject(string player1Name, string player2Name)
+        public GameModelObject()
         {
-            Player1Name = player1Name;
-            Player2Name = player2Name;
+            Player1Name = "Player 1";
+            Player2Name ="Player 1";
             GameState = GameState.Player1;
             CurrentPlayer = GameState.Player1;
             GameBoard = new TileState[,] { { TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty },
@@ -46,7 +47,7 @@ namespace Othello_Project_1._0.Objects__Models_
             {
                 for (int j = 0; j < GameBoard.GetLength(1); j++)
                 {
-                    intGameBoard[i, j] = (int)GameBoard[i, j]; 
+                    intGameBoard[i, j] = (int)GameBoard[i, j];
                 }
             }
 
@@ -69,7 +70,7 @@ namespace Othello_Project_1._0.Objects__Models_
                     }
                 }
             }
-            return TileCoordinates ;
+            return TileCoordinates;
         }
 
         public List<int[]> CheckForOppositions(int Newx, int Newy, int dx, int dy)
@@ -101,8 +102,6 @@ namespace Othello_Project_1._0.Objects__Models_
 
             return PotentialMoves;
         }
-
-
 
         public List<int[]> LegalMoves()
         {
@@ -158,7 +157,7 @@ namespace Othello_Project_1._0.Objects__Models_
         {
             List<int[]> Opps = new List<int[]>
             {
-                new int[] { Newx, Newy } // adds that FIRST opposition to opps list 
+                new int[] { Newx, Newy } // adds that FIRST opposition around a specific cell to opps list 
             };
             TileState CurrentTileState = CurrentPlayer == GameState.Player1 ? TileState.Black : TileState.White;
             TileState OpponentTileState = CurrentPlayer == GameState.Player1 ? TileState.White : TileState.Black;
@@ -185,15 +184,11 @@ namespace Othello_Project_1._0.Objects__Models_
             }
         }
 
-
-
-
-        public void FlippingTokens(int row , int column)
+        public void FlippingTokens(int row, int column)
         {
             int NumberOfRows = GameBoard.GetLength(0);
             int NumberOfColumns = GameBoard.GetLength(1);
 
-            TileState CurrentTileState = CurrentPlayer == GameState.Player1 ? TileState.Black : TileState.White;
             TileState OpponentTileState = CurrentPlayer == GameState.Player1 ? TileState.White : TileState.Black;
 
             int[][] directions = new int[][]
@@ -228,14 +223,13 @@ namespace Othello_Project_1._0.Objects__Models_
 
         public void SwapPlayerTurn()
         {
-            CurrentPlayer = CurrentPlayer == GameState.Player1 ? GameState.Player2 : GameState.Player1;
             // if current player is black then opponent player is white , otherwise opponent player is black
-
+            CurrentPlayer = CurrentPlayer == GameState.Player1 ? GameState.Player2 : GameState.Player1;
         }
-
 
         public bool CanGameContinue()
         {
+            // checks each cell to see if there are any potential moves 
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
@@ -249,6 +243,42 @@ namespace Othello_Project_1._0.Objects__Models_
             }
             return false;
         }
+
+        public void ResetGameBoard()
+        {
+            // ReInitialize the starting positions on the game board
+            TileState[,] NewGameBoard = new TileState[,] { { TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty },
+                { TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty },
+                { TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty },
+                { TileState.Empty, TileState.Empty, TileState.Empty, TileState.White , TileState.Black, TileState.Empty, TileState.Empty, TileState.Empty },
+                { TileState.Empty, TileState.Empty, TileState.Empty, TileState.Black, TileState.White, TileState.Empty, TileState.Empty, TileState.Empty },
+                { TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty },
+                { TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty },
+                { TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty, TileState.Empty } };
+
+            this.GameBoard = NewGameBoard;
+            this.CurrentPlayer = GameState.Player1;
+        }
+
+        public void SetInitialBoardState() // sets the starting game board up
+        {
+            CurrentPlayer = GameState.Player1;
+            GameBoard[4, 4] = TileState.White;
+            GameBoard[3, 3] = TileState.White;
+            GameBoard[4, 3] = TileState.Black;
+            GameBoard[3, 4] = TileState.Black;
+        }
+
+        public void ClearGameBoard() //sets every cell in the game to an empty cell 
+        {
+            for (int row = 0; row < 8; row++)
+            {
+                for (int col = 0; col < 8; col++)
+                {
+                    GameBoard[row, col] = TileState.Empty;
+                }
+            }
+        } 
 
     }
 }

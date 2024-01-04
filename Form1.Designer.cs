@@ -33,24 +33,25 @@
             newGameToolStripMenuItem = new ToolStripMenuItem();
             loadGameToolStripMenuItem = new ToolStripMenuItem();
             saveGameToolStripMenuItem = new ToolStripMenuItem();
+            exitGameToolStripMenuItem = new ToolStripMenuItem();
             ssettingToolStripMenuItem = new ToolStripMenuItem();
             speechToolStripMenuItem = new ToolStripMenuItem();
             infoPanelToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             pictureBox1 = new PictureBox();
-            label1 = new Label();
-            label2 = new Label();
+            BlackTokensLabel1 = new Label();
+            WhiteTokensLabel2 = new Label();
             pictureBox2 = new PictureBox();
             pictureBox4 = new PictureBox();
             pictureBox3 = new PictureBox();
             pictureBox5 = new PictureBox();
             lblMessage = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            button1 = new Button();
-            label3 = new Label();
-            label4 = new Label();
+            Player1TextBox1 = new TextBox();
+            Player2TextBox2 = new TextBox();
+            StartGameButton1 = new Button();
+            BlackLabel3 = new Label();
+            WhiteLabel4 = new Label();
             label5 = new Label();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -71,7 +72,7 @@
             // 
             // gameToolStripMenuItem
             // 
-            gameToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newGameToolStripMenuItem, loadGameToolStripMenuItem, saveGameToolStripMenuItem });
+            gameToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newGameToolStripMenuItem, loadGameToolStripMenuItem, saveGameToolStripMenuItem, exitGameToolStripMenuItem });
             gameToolStripMenuItem.Name = "gameToolStripMenuItem";
             gameToolStripMenuItem.Size = new Size(50, 20);
             gameToolStripMenuItem.Text = "Game";
@@ -79,20 +80,28 @@
             // newGameToolStripMenuItem
             // 
             newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
-            newGameToolStripMenuItem.Size = new Size(134, 22);
+            newGameToolStripMenuItem.Size = new Size(180, 22);
             newGameToolStripMenuItem.Text = "New Game";
+            newGameToolStripMenuItem.Click += newGameToolStripMenuItem_Click;
             // 
             // loadGameToolStripMenuItem
             // 
             loadGameToolStripMenuItem.Name = "loadGameToolStripMenuItem";
-            loadGameToolStripMenuItem.Size = new Size(134, 22);
+            loadGameToolStripMenuItem.Size = new Size(180, 22);
             loadGameToolStripMenuItem.Text = "Load Game";
             // 
             // saveGameToolStripMenuItem
             // 
             saveGameToolStripMenuItem.Name = "saveGameToolStripMenuItem";
-            saveGameToolStripMenuItem.Size = new Size(134, 22);
+            saveGameToolStripMenuItem.Size = new Size(180, 22);
             saveGameToolStripMenuItem.Text = "Save Game";
+            // 
+            // exitGameToolStripMenuItem
+            // 
+            exitGameToolStripMenuItem.Name = "exitGameToolStripMenuItem";
+            exitGameToolStripMenuItem.Size = new Size(180, 22);
+            exitGameToolStripMenuItem.Text = "Exit Game";
+            exitGameToolStripMenuItem.Click += exitGameToolStripMenuItem_Click;
             // 
             // ssettingToolStripMenuItem
             // 
@@ -140,27 +149,27 @@
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
             // 
-            // label1
+            // BlackTokensLabel1
             // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Gray;
-            label1.Font = new Font("Segoe UI Semibold", 20F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(24, 550);
-            label1.Name = "label1";
-            label1.Size = new Size(46, 37);
-            label1.TabIndex = 2;
-            label1.Text = "2x";
+            BlackTokensLabel1.AutoSize = true;
+            BlackTokensLabel1.BackColor = Color.Gray;
+            BlackTokensLabel1.Font = new Font("Segoe UI Semibold", 20F, FontStyle.Bold, GraphicsUnit.Point);
+            BlackTokensLabel1.Location = new Point(24, 550);
+            BlackTokensLabel1.Name = "BlackTokensLabel1";
+            BlackTokensLabel1.Size = new Size(46, 37);
+            BlackTokensLabel1.TabIndex = 2;
+            BlackTokensLabel1.Text = "2x";
             // 
-            // label2
+            // WhiteTokensLabel2
             // 
-            label2.AutoSize = true;
-            label2.BackColor = Color.Gray;
-            label2.Font = new Font("Segoe UI Semibold", 20F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(337, 546);
-            label2.Name = "label2";
-            label2.Size = new Size(46, 37);
-            label2.TabIndex = 3;
-            label2.Text = "2x";
+            WhiteTokensLabel2.AutoSize = true;
+            WhiteTokensLabel2.BackColor = Color.Gray;
+            WhiteTokensLabel2.Font = new Font("Segoe UI Semibold", 20F, FontStyle.Bold, GraphicsUnit.Point);
+            WhiteTokensLabel2.Location = new Point(337, 546);
+            WhiteTokensLabel2.Name = "WhiteTokensLabel2";
+            WhiteTokensLabel2.Size = new Size(46, 37);
+            WhiteTokensLabel2.TabIndex = 3;
+            WhiteTokensLabel2.Text = "2x";
             // 
             // pictureBox2
             // 
@@ -206,52 +215,52 @@
             lblMessage.Size = new Size(0, 15);
             lblMessage.TabIndex = 11;
             // 
-            // textBox1
+            // Player1TextBox1
             // 
-            textBox1.Location = new Point(127, 546);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 12;
-            textBox1.Text = "Player1";
-            textBox1.TextChanged += textBox1_TextChanged;
+            Player1TextBox1.Location = new Point(127, 546);
+            Player1TextBox1.Name = "Player1TextBox1";
+            Player1TextBox1.Size = new Size(100, 23);
+            Player1TextBox1.TabIndex = 12;
+            Player1TextBox1.Text = "Player1";
+            Player1TextBox1.TextChanged += textBox1_TextChanged;
             // 
-            // textBox2
+            // Player2TextBox2
             // 
-            textBox2.Location = new Point(463, 544);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(100, 23);
-            textBox2.TabIndex = 13;
-            textBox2.Text = "Player2";
-            textBox2.TextChanged += textBox2_TextChanged;
+            Player2TextBox2.Location = new Point(463, 544);
+            Player2TextBox2.Name = "Player2TextBox2";
+            Player2TextBox2.Size = new Size(100, 23);
+            Player2TextBox2.TabIndex = 13;
+            Player2TextBox2.Text = "Player2";
+            Player2TextBox2.TextChanged += textBox2_TextChanged;
             // 
-            // button1
+            // StartGameButton1
             // 
-            button1.Location = new Point(249, 555);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 16;
-            button1.Text = "Start Game";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            StartGameButton1.Location = new Point(249, 555);
+            StartGameButton1.Name = "StartGameButton1";
+            StartGameButton1.Size = new Size(75, 23);
+            StartGameButton1.TabIndex = 16;
+            StartGameButton1.Text = "Start Game";
+            StartGameButton1.UseVisualStyleBackColor = true;
+            StartGameButton1.Click += button1_Click;
             // 
-            // label3
+            // BlackLabel3
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(136, 577);
-            label3.Name = "label3";
-            label3.Size = new Size(84, 15);
-            label3.TabIndex = 17;
-            label3.Text = "^NEXT TURN^";
-            label3.Click += label3_Click;
+            BlackLabel3.AutoSize = true;
+            BlackLabel3.Location = new Point(136, 577);
+            BlackLabel3.Name = "BlackLabel3";
+            BlackLabel3.Size = new Size(84, 15);
+            BlackLabel3.TabIndex = 17;
+            BlackLabel3.Text = "^NEXT TURN^";
+            BlackLabel3.Click += label3_Click;
             // 
-            // label4
+            // WhiteLabel4
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(470, 577);
-            label4.Name = "label4";
-            label4.Size = new Size(84, 15);
-            label4.TabIndex = 18;
-            label4.Text = "^NEXT TURN^";
+            WhiteLabel4.AutoSize = true;
+            WhiteLabel4.Location = new Point(470, 577);
+            WhiteLabel4.Name = "WhiteLabel4";
+            WhiteLabel4.Size = new Size(84, 15);
+            WhiteLabel4.TabIndex = 18;
+            WhiteLabel4.Text = "^NEXT TURN^";
             // 
             // label5
             // 
@@ -268,18 +277,18 @@
             BackColor = Color.Silver;
             ClientSize = new Size(639, 616);
             Controls.Add(label5);
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(button1);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(WhiteLabel4);
+            Controls.Add(BlackLabel3);
+            Controls.Add(StartGameButton1);
+            Controls.Add(Player2TextBox2);
+            Controls.Add(Player1TextBox1);
             Controls.Add(lblMessage);
             Controls.Add(pictureBox5);
             Controls.Add(pictureBox3);
             Controls.Add(pictureBox4);
             Controls.Add(pictureBox2);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(WhiteTokensLabel2);
+            Controls.Add(BlackTokensLabel1);
             Controls.Add(pictureBox1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
@@ -303,8 +312,8 @@
         private ToolStripMenuItem ssettingToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
         private PictureBox pictureBox1;
-        private Label label1;
-        private Label label2;
+        private Label BlackTokensLabel1;
+        private Label WhiteTokensLabel2;
         private PictureBox pictureBox2;
         private PictureBox pictureBox4;
         private PictureBox pictureBox3;
@@ -315,12 +324,13 @@
         private ToolStripMenuItem speechToolStripMenuItem;
         private ToolStripMenuItem infoPanelToolStripMenuItem;
         private Label lblMessage;
-        private TextBox textBox1;
-        private TextBox textBox2;
+        private TextBox Player1TextBox1;
+        private TextBox Player2TextBox2;
         private ToolStripMenuItem aboutToolStripMenuItem;
-        private Button button1;
-        private Label label3;
-        private Label label4;
+        private Button StartGameButton1;
+        private Label BlackLabel3;
+        private Label WhiteLabel4;
         private Label label5;
+        private ToolStripMenuItem exitGameToolStripMenuItem;
     }
 }

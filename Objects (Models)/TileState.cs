@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Othello_Project_1._0.Objects__Models_
 {
-    internal enum TileState
+    public enum TileState
     {
         Black = 0,
         White = 1,

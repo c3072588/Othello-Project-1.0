@@ -1,14 +1,14 @@
-using GameboardGUI;
-using Newtonsoft.Json;
-using Othello_Project_1._0.Objects__Models_;
-using System.CodeDom.Compiler;
-using System.Diagnostics.Eventing.Reader;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
+﻿using GameboardGUI;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
-namespace Othello_Project_1._0
+namespace Othello_Project_1._0.Objects__Models_
 {
-    public partial class Form1 : Form
+    /*internal class Form1Copy
     {
         GameboardImageArray _simpleBoard;
         private GameModelObject _game;
@@ -20,8 +20,7 @@ namespace Othello_Project_1._0
             Point bottomRightConnerFromFormSides = new Point(100, 100);
             string pathToImages = Directory.GetCurrentDirectory() + @"\images\";
 
-            // instantiate the actual game and set initial values of components 
-            _game = new GameModelObject();
+            _game = new GameModelObject("Walid", "Bob");
 
             UpdatePotentialMoves();
 
@@ -47,8 +46,7 @@ namespace Othello_Project_1._0
 
         public void UpdatePotentialMoves() // double check if i or jacob wrote this , understand it properly 
         {
-            // Clear existing potential moves on the game board
-            for (int x = 0; x < _game.GameBoard.GetLength(0); x++)
+            for (int x = 0; x < _game.GameModelObject.gameInfoStates.GameBoard.GetLength(0); x++)
             {
                 for (int y = 0; y < _game.GameBoard.GetLength(1); y++)
                 {
@@ -61,7 +59,7 @@ namespace Othello_Project_1._0
 
             List<int[]> LegalMoves = _game.LegalMoves();
 
-            for (int i = 0; i < LegalMoves.Count; i++) // setting all legal moves as potential moves into the GameBoard
+            for (int i = 0; i < LegalMoves.Count; i++) // setting the potential moves into the GameBoard
             {
                 int[] Position = LegalMoves[i];
                 int PositionRow = Position[0];
@@ -82,25 +80,29 @@ namespace Othello_Project_1._0
             if (_game.CanGameContinue() == false)
             {
                 EndGame();
-                NewGame();
+                //NewGame();
             }
+
 
             if (originalValue == TileState.PotentialMove)
             {
+
                 _game.FlippingTokens(clickedRowIndex, clickedColIndex);
                 _game.GameBoard[clickedRowIndex, clickedColIndex] = CurrentTileState;
+
 
                 CountPlayerTokens();
                 CurrentPlayerTurn();
                 _game.SwapPlayerTurn();
                 CurrentPlayerTurn();
-
                 UpdatePotentialMoves();
 
                 _simpleBoard.UpdateBoardGui(_game.Convert2DIntegerArray());
 
+
                 lblMessage.Text = $"You clicked the tile mapped to array position ({clickedRowIndex},{clickedColIndex}).\n" +
                     $"It's value used to be {originalValue}, but changed to {CurrentTileState} when you clicked the tile!";
+
             }
         }
 
@@ -127,10 +129,12 @@ namespace Othello_Project_1._0
 
             BlackTokensLabel1.Text = BlackTokens.ToString();
             WhiteTokensLabel2.Text = WhiteTokens.ToString();
+
         }
 
-        private void CurrentPlayerTurn() // change the current player to the other player
+        private void CurrentPlayerTurn()
         {
+            // change the current player to the other player
             _game.CurrentPlayer = _game.CurrentPlayer == GameState.Player1 ? GameState.Player2 : GameState.Player1;
             BlackLabel3.Visible = false;
             WhiteLabel4.Visible = false;
@@ -151,163 +155,49 @@ namespace Othello_Project_1._0
 
         public void EndGame()
         {
-            int blackScore = CountTiles(TileState.Black);
-            int whiteScore = CountTiles(TileState.White);
+            int BlackScore = 0;
+            int WhiteScore = 0;
 
-            string winnerMessage = GetWinnerMessage(blackScore, whiteScore);
-
-            string message = $"Game Over!\nBLACK: {blackScore}\nWHITE: {whiteScore}\n{winnerMessage}";
-            MessageBox.Show(message, "Game Over", MessageBoxButtons.OK);
-        }
-
-        private int CountTiles(TileState tileState)
-        {
-            int count = 0;
+            string Winner;
 
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    if (_game.GameBoard[i, j] == tileState)
+                    if (_game.GameBoard[i, j] == TileState.Black)
                     {
-                        count++;
+                        BlackScore++;
+                    }
+
+                    else if (_game.GameBoard[i, j] == TileState.White)
+                    {
+                        WhiteScore++;
                     }
                 }
             }
 
-            return count;
-        }
+            if (BlackScore > WhiteScore)
+            {
+                Winner = $"{Player1TextBox1.Text} (BLACK) wins!";
+            }
 
-        private string GetWinnerMessage(int blackScore, int whiteScore)
-        {
-            if (blackScore > whiteScore)
+            else if (WhiteScore > BlackScore)
             {
-                return $"{Player1TextBox1.Text} is the winner :)";
+                Winner = $"{Player2TextBox2.Text} (WHITE) wins!";
             }
-            else if (whiteScore > blackScore)
-            {
-                return $"{Player2TextBox2.Text} is the winner :)";
-            }
+
             else
             {
-                return $"Womp Womp, {Player1TextBox1.Text} and {Player2TextBox2.Text} drew :(";
-            }
-        }
-
-
-        private void NewGame() // function which creates and sets a new game
-        {
-            if (_game.CanGameContinue())
-            {
-                DisplaySaveGameMessage();
+                Winner = "It's a tie!";
             }
 
-            _game.ResetGameBoard();
-            ClearGameBoard();
+            // Display the message to the players
+            string message = $"Game Over!\nBLACK: {BlackScore}\nWHITE: {WhiteScore}\n{Winner}";
+            MessageBox.Show(message, "Game Over", MessageBoxButtons.OK);
 
-           _game.SetInitialBoardState();
 
-            _game.CurrentPlayer = GameState.Player1;
-            CountPlayerTokens();
-            UpdatePotentialMoves();
-
-            _simpleBoard.UpdateBoardGui(_game.Convert2DIntegerArray());
-            SetUpPlayerLabels();
         }
 
-        private bool DisplaySaveGameMessage() // shows message asking user whether they want to save game or not 
-        {
-            DialogResult UserChoice = MessageBox.Show("Do you wish to save the current game state?", "Save Game", MessageBoxButtons.YesNo);
-
-            if (UserChoice == DialogResult.Yes)
-            {
-                SaveGameState();
-                return true;
-            }
-            return false;
-        }
-
-        private void ClearGameBoard()
-        {
-            _game.ClearGameBoard();
-        }
-
-        public void SetUpPlayerLabels() // Display player names
-        {
-            Player1TextBox1.Text = _game.Player1Name;
-            Player2TextBox2.Text = _game.Player2Name;
-        }
-
-        //var SavedGameStates = new List<GameState>
-
-        private void SaveGameState()
-        {
-            GameInfoStates newGameInfoStates = new GameInfoStates
-            {
-                Player1Name = Player1TextBox1.Text,
-                Player2Name = Player2TextBox2.Text,
-                CurrentPlayer = GameState.Player1,
-                GameBoard = CopyGameBoard()
-            };
-
-            string jsonGameState = JsonConvert.SerializeObject(newGameInfoStates);
-
-            try
-            {
-                File.WriteAllText("game_data.json", jsonGameState);
-                MessageBox.Show("Game state saved successfully.", "Save Game");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error saving game state: {ex.Message}", "Save Game Error");
-            }
-        }
-
-        private TileState[,] CopyGameBoard()
-        {
-            TileState[,] copy = new TileState[8, 8];
-
-            for (int row = 0; row < 8; row++)
-            {
-                for (int col = 0; col < 8; col++)
-                {
-                    copy[row, col] = _game.GameBoard[row, col];
-                }
-            }
-
-            return copy;
-        }
-
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            // Disable textboxes after setting names
-            Player1TextBox1.ReadOnly = true;
-            Player2TextBox2.ReadOnly = true;
-
-            // Hide the start game button
-            StartGameButton1.Hide();
-        }
-
-        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NewGame();
-        }
-
-        private void exitGameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (_game.CanGameContinue())
-            {
-                bool UserWantsToSave = DisplaySaveGameMessage();
-
-                if (UserWantsToSave)
-                {
-                    SaveGameState();
-                }
-            }
-            
-            Application.Exit();
-        }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -334,7 +224,15 @@ namespace Othello_Project_1._0
 
             infoPanelToolStripMenuItem.Checked = !infoPanelToolStripMenuItem.Checked;
         }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Disable textboxes after setting names
+            Player1TextBox1.ReadOnly = true;
+            Player2TextBox2.ReadOnly = true;
 
+            // Hide the start game button
+            StartGameButton1.Hide();
+        }
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
@@ -356,10 +254,20 @@ namespace Othello_Project_1._0
         }
 
 
+
         private void label3_Click(object sender, EventArgs e)
         {
 
         }
 
-    }
+        private void exitGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+    }*/
 }
